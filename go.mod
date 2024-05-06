@@ -1,4 +1,4 @@
-module github.com/paketo-buildpacks/builder-jammy-full
+module github.com/initializ-buildpacks/Go-Securepack
 
 go 1.18
 
