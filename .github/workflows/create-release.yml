@@ -40,7 +40,7 @@ jobs:
 
     - name: Run smoke test
       run: |
-         chmod +x./scripts/smoke.sh
+         chmod +x ./scripts/smoke.sh
          ./scripts/smoke.sh --name builder
 
     - name: Generate Release Notes
