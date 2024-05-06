@@ -45,11 +45,7 @@ jobs:
         INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME }}
         INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD }}
         GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-      run: |
-        DOCKERHUB_ORG="${GITHUB_REPOSITORY_OWNER/-/}" # translates 'initializ-buildpacks' to 'initializbuildpacks'
-        # Strip off the Github org prefix from repo name
-        # initializ-buildpacks/builder-with-some-name --> builder-with-some-name
-        registry_repo=$(echo "${{ github.repository }}" | sed 's/^.*\///')
+        DOCKERHUB_ORG: "initializbuildpacks"
 
         echo "${INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD}" | docker login --username "${INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME}" --password-stdin
         docker tag builder "${DOCKERHUB_ORG}/${registry_repo}:latest"
@@ -65,7 +61,7 @@ jobs:
     if: ${{ always() && needs.push.result == 'failure' }}
     steps:
     - name: File Failure Alert Issue
-      uses: initializ-buildpacks/github-config/actions/issue/file@main
+      uses: INITIALIZ-buildpacks/github-config/actions/issue/file@main
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         repo: ${{ github.repository }}
