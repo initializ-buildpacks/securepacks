@@ -18,7 +18,7 @@ jobs:
     - name: Checkout branch
       uses: initializ-buildpacks/github-config/actions/pull-request/checkout-branch@main
       with:
-        branch: "automation/builder-toml"
+        branch: "automations/builder-toml"
 
     - name: Update builder.toml
       uses: initializ-buildpacks/github-config/actions/builder/update@main
@@ -38,7 +38,7 @@ jobs:
       if: ${{ steps.commit.outputs.commit_sha != '' }}
       uses: initializ-buildpacks/github-config/actions/pull-request/push-branch@main
       with:
-        branch: "automation/builder-toml"
+        branch: "automations/builder-toml"
 
     - name: Open Pull Request
       if: ${{ steps.commit.outputs.commit_sha != '' }}
@@ -46,7 +46,7 @@ jobs:
       with:
         token: ${{ secrets.PAT }}
         title: "Updating builder.toml"
-        branch: "automation/builder-toml"
+        branch: "automations/builder-toml"
 
   failure:
     name: Alert on Failure
