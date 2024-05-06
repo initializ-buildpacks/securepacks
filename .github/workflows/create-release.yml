@@ -38,8 +38,10 @@ jobs:
       with:
         pack-version: ${{ steps.pack-version.outputs.version }}
 
-    - name: Run Smoke Tests
-      run: ./scripts/smoke.sh --name builder
+    - name: Run smoke test
+      run: |
+         chmod +x./scripts/smoke.sh
+         ./scripts/smoke.sh --name builder
 
     - name: Generate Release Notes
       id: notes
