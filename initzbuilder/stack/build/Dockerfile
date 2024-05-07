@@ -9,16 +9,23 @@ RUN apk update && \
     apk del libcrypt1  && \
     apk add \
          ca-certificates-bundle \
+         build-base \
+         curl \
+         git \
+         jq \
+         gmp \
          wolfi-base \
          libexpat1 \
          libssl3 \
          yaml \
          openssl \
+         openssl-dev \
+         xz \
          tzdata \
          zlib \
          libstdc++ \
          fontconfig
-        
+         
 # Create symbolic link for libpcre
 RUN ln -s /usr/lib/libpcre.so.1 /usr/lib/libpcre.so.3
  

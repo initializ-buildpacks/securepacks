@@ -11,7 +11,11 @@ RUN apk update && \
         bash \
         pcre \
         libfontconfig1 \
-        ttf-dejavu 
+        libexpat1 \
+        libssl3 \
+        openssl \
+        tzdata \
+        zlib
 
  
 # Create symbolic link for libpcre
