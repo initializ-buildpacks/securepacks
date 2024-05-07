@@ -1,4 +1,4 @@
-description = "Initializ Distroless base image with buildpacks for Go"
+Description = "Initializ Distroless base and run image with buildpacks for Go"
 
 [[buildpacks]]
   uri = "index.docker.io/initializbuildpacks/go@sha256:8e758c18ee1cb5bb4bf1b31b7989cbe17bc9ec424f9b1765ba9345b00f116286"
