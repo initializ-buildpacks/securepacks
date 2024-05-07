@@ -15,7 +15,7 @@ Description = "Initializ Distroless base and run image with buildpacks for Go"
  
 # Base images used to create the builder
 [stack]
-  build-image = "docker.io/initializbuildpacks/securepacks-build:0.0.1"
+  build-image = "docker.io/initializbuildpacks/go-securepack-build:0.0.1"
   id = "Initializ Distroless Stack"
-  run-image = "docker.io/initializbuildpacks/securepacks-run:latest"
+  run-image = "docker.io/initializbuildpacks/go-securepacks-run:latest"
   run-image-mirrors = []
