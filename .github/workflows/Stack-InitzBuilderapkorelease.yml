@@ -28,7 +28,7 @@ jobs:
         id: apko
         uses: distroless/actions/apko-build@main
         with:
-          config: Go-Securepack/initzbuilder/${{ inputs.image }}/apko.yaml
+          config: initzbuilder/${{ inputs.image }}/apko.yaml
           tag: initializbuildpacks/Go-Securepack-${{ inputs.image }}:latest
 
       - name: Tag, and push docker image to Amazon ECR Public
