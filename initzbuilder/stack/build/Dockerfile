@@ -1,5 +1,5 @@
 # Define the base image
-FROM initializbuildpacks/initz-base:latest
+FROM initializbuildpacks/go-securepack-base:latest
  
 # Switch to the root user to install packages
 USER root
