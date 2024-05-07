@@ -44,20 +44,17 @@ jobs:
       env:
         INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME }}
         INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD }}
-    - name: Push To Dockerhub
-      env:
-          INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME }}
-          INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD }}
-        run: |
-          DOCKERHUB_ORG="initializ-buildpacks"
-          registry_repo="go-securepack"
-      
-          echo "${INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD}" | docker login --username "${INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME}" --password-stdin
-          docker tag builder "${DOCKERHUB_ORG}/${registry_repo}:latest"
-          docker tag builder "${DOCKERHUB_ORG}/${registry_repo}:${{ steps.event.outputs.tag }}"
-      
-          docker push "${DOCKERHUB_ORG}/${registry_repo}:latest"
-          docker push "${DOCKERHUB_ORG}/${registry_repo}:${{ steps.event.outputs.tag }}"
+      run: |
+        DOCKERHUB_ORG="initializbuildpacks"
+        registry_repo="go-securepack"
+
+        echo "${INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD}" | docker login --username "${INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME}" --password-stdin
+        docker tag builder "${DOCKERHUB_ORG}/${registry_repo}:latest"
+        docker tag builder "${DOCKERHUB_ORG}/${registry_repo}:${{ steps.event.outputs.tag }}"
+
+        docker push "${DOCKERHUB_ORG}/${registry_repo}:latest"
+        docker push "${DOCKERHUB_ORG}/${registry_repo}:${{ steps.event.outputs.tag }}"
+
       
 
   failure:
