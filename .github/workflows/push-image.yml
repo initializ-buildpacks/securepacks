@@ -42,12 +42,16 @@ jobs:
 
     - name: Push To Dockerhub
       env:
-        INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME }}
-        INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD }}
+        PAKETO_BUILDPACKS_DOCKERHUB_USERNAME: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME }}
+        PAKETO_BUILDPACKS_DOCKERHUB_PASSWORD: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD }}
         GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-        DOCKERHUB_ORG: "initializbuildpacks"
+      run: |
+        DOCKERHUB_ORG="${GITHUB_REPOSITORY_OWNER/-/}" # translates 'paketo-buildpacks' to 'paketobuildpacks'
+        # Strip off the Github org prefix from repo name
+        # paketo-buildpacks/builder-with-some-name --> builder-with-some-name
+        registry_repo=$(echo "${{ github.repository }}" | sed 's/^.*\///')
 
-        echo "${INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD}" | docker login --username "${INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME}" --password-stdin
+        echo "${PAKETO_BUILDPACKS_DOCKERHUB_PASSWORD}" | docker login --username "${PAKETO_BUILDPACKS_DOCKERHUB_USERNAME}" --password-stdin
         docker tag builder "${DOCKERHUB_ORG}/${registry_repo}:latest"
         docker tag builder "${DOCKERHUB_ORG}/${registry_repo}:${{ steps.event.outputs.tag }}"
 
@@ -61,7 +65,7 @@ jobs:
     if: ${{ always() && needs.push.result == 'failure' }}
     steps:
     - name: File Failure Alert Issue
-      uses: INITIALIZ-buildpacks/github-config/actions/issue/file@main
+      uses: paketo-buildpacks/github-config/actions/issue/file@main
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         repo: ${{ github.repository }}
