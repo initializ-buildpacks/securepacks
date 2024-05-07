@@ -1,4 +1,4 @@
-description = ""
+description = "Initializ Buildpack for Go"
 
 [[buildpacks]]
   uri = "docker://docker.io/initializbuildpacks/go:1.0.8"
