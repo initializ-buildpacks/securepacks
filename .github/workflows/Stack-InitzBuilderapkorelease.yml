@@ -1,0 +1,66 @@
+on:
+  workflow_dispatch:
+    inputs:
+      image:
+        description: 'Image to Release'
+        required: true
+        type: string
+
+permissions:
+  id-token: write  # This is required for GH OIDC connection
+  contents: read   # This is required for actions/checkout
+
+jobs:
+  image-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Create & Push Minimal Image using apko
+        id: apko
+        uses: distroless/actions/apko-build@main
+        with:
+          config: Go-Securepack/initzbuilder/${{ inputs.image }}/apko.yaml
+          tag: initializbuildpacks/Go-Securepack-${{ inputs.image }}:latest
+
+      - name: Tag, and push docker image to Amazon ECR Public
+        run: |
+          docker load < output.tar
+      - name: Check if Docker image exists locally
+        run: |
+          if docker images initializbuildpacks/Go-Securepack-${{ inputs.image }}:latest-amd64 | grep -q initializbuildpacks/Go-Securepack-${{ inputs.image }}; then
+            echo "Docker image initializbuildpacks/Go-Securepack-${{ inputs.image }}:latest found."
+          else
+            echo "Docker image initializbuildpacks/Go-Securepack-${{ inputs.image }}:latest not found. Please build the image first."
+            exit 1
+          fi
+      - name: Tag and push Docker image to Docker Hub
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          REPOSITORY: ${{ inputs.image }}
+        run: |  
+          docker tag initializbuildpacks/Go-Securepack-${{ inputs.image }}:latest-amd64 initializbuildpacks/Go-Securepack-${{ inputs.image }}:latest
+          docker push initializbuildpacks/Go-Securepack-${{ inputs.image }}:latest
+      - uses: sigstore/cosign-installer@11086d25041f77fe8fe7b9ea4e48e3b9192b8f19 # v3.1.2
+      - name: Sign the images
+        run: |
+          cosign sign \
+            --yes initializbuildpacks/Go-Securepack-${{ inputs.image }}:latest
+      - name: Verify the pushed tags
+        run: | 
+          cosign verify \
+          initz-${{ inputs.image }}:latest \
+          --certificate-identity https://github.com/initializ/secure-images/.github/workflows/InitzBuilderapkorelease.yml@refs/heads/main \
+          --certificate-oidc-issuer https://token.actions.githubusercontent.com | jq
+      - name: Attest SBOM
+        run: |
+          cosign attest \
+            --yes --predicate sbom-x86_64.spdx.json --type spdxjson initializbuildpacks/Go-Securepack-${{ inputs.image }}:latest

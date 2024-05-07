@@ -1,0 +1,103 @@
+description = "Initializ Distroless base image with buildpacks for Go, NodeJS,Python, Ruby, Java, .NET Core, Apache HTTPD, NGINX and Procfile"
+
+[[buildpacks]]
+  uri = "index.docker.io/initializbuildpacks/dotnet-core@sha256:9a03801b04a6d748e65e82d630c96cef274a6555021facfb84e1e6decd016bcd"
+  version = "1.0.10" 
+ 
+[[buildpacks]]
+  uri = "index.docker.io/initializbuildpacks/go@sha256:8e758c18ee1cb5bb4bf1b31b7989cbe17bc9ec424f9b1765ba9345b00f116286"
+  version = "1.0.5"
+
+[[buildpacks]]
+  uri = "index.docker.io/initializbuildpacks/java-native-image@sha256:b8677c3dcad8cb0e745b7fb78fed4a985b9ecac429e0cb16cf7460540e97c145"
+  version = "9.0.2"
+
+[[buildpacks]]
+  uri = "index.docker.io/initializbuildpacks/java@sha256:e43cd847b021674d30264a2aec731610bc8930feeb89e29e5b89adc239a34855"
+  version = "2.0.3"
+ 
+[[buildpacks]]
+  uri = "index.docker.io/initializbuildpacks/nodejs@sha256:21e3da58726ae5b2a73198209dbedd26bdd2e2cf17bff1dab0528b5338ef4a3a"
+  version = "2.2.4"
+
+[[buildpacks]]
+  uri = "index.docker.io/initializbuildpacks/procfile@sha256:bd23a2d42c75721f49ab15964e24cb9080427b17c2a7b25db710b30c2761540c"
+  version = "5.6.11"
+
+[[buildpacks]]
+  uri = "index.docker.io/initializbuildpacks/python@sha256:271a0f00e921dccd76883dfe52b126bf02648b2125e1890e737cb83074bced43"
+  version = "4.0.3"
+ 
+[[buildpacks]]
+  uri = "index.docker.io/initializbuildpacks/ruby@sha256:fea14c23abea8e3ef51c49faf3bfc27842295d88cec92c7f669164b5b1b2f827"
+  version = "1.0.1" 
+
+[[buildpacks]]
+  uri = "index.docker.io/initializbuildpacks/web-servers@sha256:826e2c84a786ce4da2522c7c99f07fa5fa8b36abf9d20c6ed5eb765c3a4e4d50"
+  version = "1.0.6" 
+
+[lifecycle]
+  version = "0.19.3"
+ 
+[[order]]
+
+  [[order.group]]
+    id = "initializ-buildpacks/ruby"
+    version = "1.0.1" 
+ 
+[[order]]
+
+  [[order.group]]
+    id = "initializ-buildpacks/dotnet-core"
+    version = "1.0.10"
+
+[[order]]
+ 
+  [[order.group]]
+    id = "initializ-buildpacks/go"
+    version = "1.0.5"
+ 
+[[order]]
+ 
+  [[order.group]]
+    id = "initializ-buildpacks/java-native-image"
+    version = "9.0.2"
+ 
+ 
+[[order]]
+ 
+  [[order.group]]
+    id = "initializ-buildpacks/java"
+    version = "2.0.3"
+ 
+[[order]]
+ 
+  [[order.group]]
+    id = "initializ-buildpacks/web-servers"
+    version = "1.0.6"   
+
+[[order]]
+ 
+   [[order.group]]
+    id = "initializ-buildpacks/nodejs"
+    version = "2.2.4" 
+
+[[order]] 
+
+  [[order.group]]
+    id = "initializ-buildpacks/python"
+    version = "4.0.3"
+
+[[order]]
+ 
+  [[order.group]]
+    id = "initializ-buildpacks/procfile"
+    version = "5.6.11"
+ 
+
+# Base images used to create the builder
+[stack]
+  build-image = "initializbuildpacks/securepacks-build:latest"
+  id = "Initializ Distroless Stack"
+  run-image = "initializbuildpacks/securepacks-run:latest"
+  run-image-mirrors = []
