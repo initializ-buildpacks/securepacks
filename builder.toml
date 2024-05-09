@@ -5,7 +5,7 @@ description = ""
   version = "1.0.8"
 
 [lifecycle]
-  version = "0.19.3"
+  version = "0.19.4"
 
 [[order]]
 
