@@ -6,7 +6,7 @@ description = "Initializ Buildpack for Go"
 
 [[buildpacks]]
   uri = "docker://docker.io/initializbuildpacks/nodejs:0.0.1"
-  version = "1.0.8"
+  version = "0.0.1"
 
 [lifecycle]
   version = "0.19.4"
