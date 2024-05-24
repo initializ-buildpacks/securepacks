@@ -29,7 +29,7 @@ description = "Initializ Buildpack for Go, Nodejs"
  
   [[order.group]]
     id = "initializ-buildpacks/web-servers"
-    version = "1.0.8
+    version = "1.0.8"
 
 [[order]]
 
