@@ -1,4 +1,4 @@
-module github.com/initializ-buildpacks/Go-Securepack
+module github.com/initializ-buildpacks/securepack
 
 go 1.21
 
