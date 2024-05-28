@@ -45,8 +45,8 @@ jobs:
         INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME }}
         INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD }}
       run: |
-        DOCKERHUB_ORG="initializ-buildpacks"
-        registry_repo="go-securepack"
+        DOCKERHUB_ORG="initializbuildpacks"
+        registry_repo="securepacks"
 
         echo "${INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD}" | docker login --username "${INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME}" --password-stdin
         docker tag builder "${DOCKERHUB_ORG}/${registry_repo}:latest"
