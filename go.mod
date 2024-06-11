@@ -6,7 +6,7 @@ toolchain go1.22.2
 
 require (
 	github.com/onsi/gomega v1.33.1
-	github.com/paketo-buildpacks/occam v0.18.6
+	github.com/paketo-buildpacks/occam v0.18.7
 	github.com/sclevine/spec v1.4.0
 )
 
@@ -23,7 +23,7 @@ require (
 	github.com/cpuguy83/dockercfg v0.3.1 // indirect
 	github.com/distribution/reference v0.5.0 // indirect
 	github.com/docker/distribution v2.8.3+incompatible // indirect
-	github.com/docker/docker v26.1.3+incompatible // indirect
+	github.com/docker/docker v26.1.4+incompatible // indirect
 	github.com/docker/go-connections v0.5.0 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
