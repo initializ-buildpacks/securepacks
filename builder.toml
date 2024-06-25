@@ -44,7 +44,7 @@ description = "Initializ Buildpack for Go, Nodejs"
     version = "5.6.13"
 
 [stack]
-  build-image = "initializbuildpacks/go-securepack-build:0.1.0"
+  build-image = "initializbuildpacks/go-securepack-build:latest"
   id = "Initializ Distroless Stack"
   run-image = "initializbuildpacks/securepacks-run:latest"
   run-image-mirrors = []
