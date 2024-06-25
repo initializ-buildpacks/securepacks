@@ -1,16 +1,16 @@
 description = "Initializ Buildpack for Go, Nodejs"
 
 [[buildpacks]]
-  uri = "docker://docker.io/initializbuildpacks/go:1.21.11"
-  version = "1.21.11"
+  uri = "docker://docker.io/initializbuildpacks/go:1.21.17"
+  version = "1.21.17"
 
 [[buildpacks]]
-  uri = "docker://docker.io/initializbuildpacks/nodejs:0.0.1"
-  version = "0.0.1"
+  uri = "docker://docker.io/initializbuildpacks/nodejs:2.2.4"
+  version = "2.2.4"
 
 [[buildpacks]]
-  uri = "docker://docker.io/initializbuildpacks/procfile:5.6.13"
-  version = "5.6.13"
+  uri = "docker://docker.io/initializbuildpacks/procfile:5.6.14"
+  version = "5.6.14"
 
 [[buildpacks]]
   uri = "docker://docker.io/initializbuildpacks/web-servers:1.0.8"
@@ -23,10 +23,10 @@ description = "Initializ Buildpack for Go, Nodejs"
 
   [[order.group]]
     id = "initializ-buildpacks/go"
-    version = "1.21.11"
+    version = "1.21.17"
 
 [[order]]
- 
+
   [[order.group]]
     id = "initializ-buildpacks/web-servers"
     version = "1.0.8"
@@ -35,16 +35,16 @@ description = "Initializ Buildpack for Go, Nodejs"
 
   [[order.group]]
     id = "initializ-buildpacks/nodejs"
-    version = "0.0.1"
+    version = "2.2.4"
 
 [[order]]
 
   [[order.group]]
     id = "initializ-buildpacks/procfile"
-    version = "5.6.13"
+    version = "5.6.14"
 
 [stack]
-  build-image = "docker.io/initializbuildpacks/go-securepack-build:0.1.0"
+  build-image = "docker.io/initializbuildpacks/go-securepack-build:9.9.9"
   id = "Initializ Distroless Stack"
   run-image = "docker.io/initializbuildpacks/securepacks-run:latest"
   run-image-mirrors = []
