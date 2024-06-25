@@ -18,6 +18,4 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Run Smoke Tests
-      run: |
-       chmod +x ./scripts/smoke.sh
-       ./scripts/smoke.sh --name builder
+      run: ./scripts/smoke.sh
