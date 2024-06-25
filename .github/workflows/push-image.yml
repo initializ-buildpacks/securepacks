@@ -44,9 +44,8 @@ jobs:
       env:
         INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME }}
         INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD }}
-      run: |
-        DOCKERHUB_ORG="initializbuildpacks"
-        registry_repo="securepacks"
+        GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+        DOCKERHUB_ORG: "initializbuildpacks"
 
         echo "${INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD}" | docker login --username "${INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME}" --password-stdin
         docker tag builder "${DOCKERHUB_ORG}/${registry_repo}:latest"
@@ -55,8 +54,6 @@ jobs:
         docker push "${DOCKERHUB_ORG}/${registry_repo}:latest"
         docker push "${DOCKERHUB_ORG}/${registry_repo}:${{ steps.event.outputs.tag }}"
 
-      
-
   failure:
     name: Alert on Failure
     runs-on: ubuntu-22.04
@@ -64,7 +61,7 @@ jobs:
     if: ${{ always() && needs.push.result == 'failure' }}
     steps:
     - name: File Failure Alert Issue
-      uses: initializ-buildpacks/github-config/actions/issue/file@main
+      uses: INITIALIZ-buildpacks/github-config/actions/issue/file@main
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         repo: ${{ github.repository }}
