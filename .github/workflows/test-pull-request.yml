@@ -19,10 +19,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: give smoke script permisson
+      run: chmod ./scripts/smoke.sh
+
     - name: Run smoke test
-      run: |
-         chmod +x ./scripts/smoke.sh
-         ./scripts/smoke.sh
+      run: ./scripts/smoke.sh
 
   upload:
     name: Upload Workflow Event Payload
