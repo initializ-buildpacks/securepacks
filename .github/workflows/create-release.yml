@@ -34,7 +34,7 @@ jobs:
         pack-version: ${{ steps.pack-version.outputs.version }}
 
     - name: Grant execute permission for smoke.sh
-      run: chmod +x ./scripts/smoke.sh --name builder
+      run: chmod +x ./scripts/smoke.sh
 
     - name: Run Smoke Tests
       run: ./scripts/smoke.sh --name builder
