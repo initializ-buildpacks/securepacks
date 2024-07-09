@@ -1,1 +1,1 @@
-Securepack for go and nodejs.
+Securepack for go and nodejs application
