@@ -4,7 +4,6 @@ on:
   workflow_dispatch: {}
 
 jobs:
-
   smoke:
     name: Smoke Test
     runs-on: ubuntu-22.04
@@ -16,6 +15,9 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v3
+
+    - name: Make smoke.sh executable
+      run: chmod +x ./scripts/smoke.sh
 
     - name: Run Smoke Tests
       run: ./scripts/smoke.sh
