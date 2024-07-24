@@ -19,6 +19,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Make smoke.sh executable
+      run: chmod +x ./scripts/smoke.sh     
+
     - name: Run Smoke Tests
       run: ./scripts/smoke.sh
 
