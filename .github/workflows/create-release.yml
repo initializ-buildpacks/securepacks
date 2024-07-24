@@ -33,9 +33,6 @@ jobs:
       with:
         pack-version: ${{ steps.pack-version.outputs.version }}
 
-    - name: Make smoke.sh executable
-      run: chmod +x ./scripts/smoke.sh      
-
     - name: Run Smoke Tests
       run: ./scripts/smoke.sh --name builder
 
