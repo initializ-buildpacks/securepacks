@@ -3,55 +3,56 @@ name: Push Builder Image
 on:
   release:
     types:
-      - published
+    - published
 
 jobs:
   push:
     name: Push
     runs-on: ubuntu-22.04
     steps:
-      - name: Parse Event
-        id: event
-        run: |
-          echo "tag=$(jq -r '.release.tag_name' "${GITHUB_EVENT_PATH}" | sed s/^v//)" >> "$GITHUB_OUTPUT"
 
-      - name: Checkout
-        uses: actions/checkout@v3
+    - name: Parse Event
+      id: event
+      run: |
+        echo "tag=$(jq -r '.release.tag_name' "${GITHUB_EVENT_PATH}" | sed s/^v//)" >> "$GITHUB_OUTPUT"
 
-      - name: Get pack version
-        id: pack-version
-        run: |
-          version=$(jq -r .pack "scripts/.util/tools.json")
-          echo "version=${version#v}" >> "$GITHUB_OUTPUT"
+    - name: Checkout
+      uses: actions/checkout@v3
 
-      - name: Install Global Pack
-        uses: buildpacks/github-actions/setup-pack@main
-        with:
-          pack-version: ${{ steps.pack-version.outputs.version }}
+    - name: Get pack version
+      id: pack-version
+      run: |
+        version=$(jq -r .pack "scripts/.util/tools.json")
+        echo "version=${version#v}" >> "$GITHUB_OUTPUT"
 
-      - name: Enable Experimental Pack Features
-        run: |
-          if [ -f "scripts/options.json" ] && jq -e -r .pack_config_enable_experimental "scripts/options.json" > /dev/null; then
-            pack config experimental true
-          fi
+    - name: Install Global Pack
+      uses: buildpacks/github-actions/setup-pack@main
+      with:
+        pack-version: ${{ steps.pack-version.outputs.version }}
 
-      - name: Create Builder Image
-        run: |
-          pack builder create builder --config builder.toml
+    - name: Enable Experimental Pack Features
+      run: |
+        if [ -f "scripts/options.json" ] && jq -e -r .pack_config_enable_experimental "scripts/options.json" > /dev/null; then
+          pack config experimental true
+        fi
 
-      - name: Push To Dockerhub
-        env:
-          INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME }}
-          INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD }}
-          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
-          DOCKERHUB_ORG: "initializbuildpacks"
-        run: |
-          echo "${INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD}" | docker login --username "${INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME}" --password-stdin
-          docker tag builder "${DOCKERHUB_ORG}/${registry_repo}:latest"
-          docker tag builder "${DOCKERHUB_ORG}/${registry_repo}:${{ steps.event.outputs.tag }}"
+    - name: Create Builder Image
+      run: |
+        pack builder create builder --config builder.toml
 
-          docker push "${DOCKERHUB_ORG}/${registry_repo}:latest"
-          docker push "${DOCKERHUB_ORG}/${registry_repo}:${{ steps.event.outputs.tag }}"
+    - name: Push To Dockerhub
+      env:
+        INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME }}
+        INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD: ${{ secrets.INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD }}
+        GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+        DOCKERHUB_ORG: "initializbuildpacks"
+
+        echo "${INITIALIZ_BUILDPACKS_DOCKERHUB_PASSWORD}" | docker login --username "${INITIALIZ_BUILDPACKS_DOCKERHUB_USERNAME}" --password-stdin
+        docker tag builder "${DOCKERHUB_ORG}/${registry_repo}:latest"
+        docker tag builder "${DOCKERHUB_ORG}/${registry_repo}:${{ steps.event.outputs.tag }}"
+
+        docker push "${DOCKERHUB_ORG}/${registry_repo}:latest"
+        docker push "${DOCKERHUB_ORG}/${registry_repo}:${{ steps.event.outputs.tag }}"
 
   failure:
     name: Alert on Failure
@@ -59,15 +60,15 @@ jobs:
     needs: [push]
     if: ${{ always() && needs.push.result == 'failure' }}
     steps:
-      - name: File Failure Alert Issue
-        uses: initializ-buildpacks/github-config/actions/issue/file@main
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repo: ${{ github.repository }}
-          label: "failure:push"
-          comment_if_exists: true
-          issue_title: "Failure: Push Image workflow"
-          issue_body: |
-            Push Image workflow [failed](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}).
-          comment_body: |
-            Another failure occurred: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
+    - name: File Failure Alert Issue
+      uses: initializ-buildpacks/github-config/actions/issue/file@main
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        repo: ${{ github.repository }}
+        label: "failure:push"
+        comment_if_exists: true
+        issue_title: "Failure: Push Image workflow"
+        issue_body: |
+          Push Image workflow [failed](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}).
+        comment_body: |
+           Another failure occurred: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
