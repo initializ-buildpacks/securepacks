@@ -9,8 +9,8 @@ description = "Initializ Buildpack for Go and Nodejs application"
   version = "3.0.1"
 
 [[buildpacks]]
-  uri = "docker://docker.io/initializbuildpacks/procfile:5.6.20"
-  version = "5.6.20"
+  uri = "docker://docker.io/initializbuildpacks/procfile:5.6.21"
+  version = "5.6.21"
 
 [[buildpacks]]
   uri = "docker://docker.io/initializbuildpacks/web-servers:1.0.14"
@@ -41,7 +41,7 @@ description = "Initializ Buildpack for Go and Nodejs application"
 
   [[order.group]]
     id = "initializ-buildpacks/procfile"
-    version = "5.6.20"
+    version = "5.6.21"
 
 [stack]
   build-image = "docker.io/initializbuildpacks/go-securepack-build:9.9.9"
