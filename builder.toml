@@ -17,7 +17,7 @@ description = "Initializ Buildpack for Go and Nodejs application"
   version = "1.0.14"
 
 [lifecycle]
-  version = "0.20.2"
+  version = "0.20.3"
 
 [[order]]
 
