@@ -1,8 +1,8 @@
 description = "Initializ Buildpack for Go and Nodejs application"
 
 [[buildpacks]]
-  uri = "docker://docker.io/initializbuildpacks/go:2.0.0"
-  version = "2.0.0"
+  uri = "docker://docker.io/initializbuildpacks/go:2.0.1"
+  version = "2.0.1"
 
 [[buildpacks]]
   uri = "docker://docker.io/initializbuildpacks/nodejs:3.0.2"
@@ -23,7 +23,7 @@ description = "Initializ Buildpack for Go and Nodejs application"
 
   [[order.group]]
     id = "initializ-buildpacks/go"
-    version = "2.0.0"
+    version = "2.0.1"
 
 [[order]]
 
