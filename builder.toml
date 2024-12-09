@@ -1,20 +1,20 @@
 description = "Initializ Buildpack for Go and Nodejs application"
 
 [[buildpacks]]
-  uri = "docker://docker.io/initializbuildpacks/go:2.0.4"
-  version = "2.0.4"
+  uri = "docker://docker.io/initializbuildpacks/go:2.0.5"
+  version = "2.0.5"
 
 [[buildpacks]]
-  uri = "docker://docker.io/initializbuildpacks/nodejs:3.0.7"
-  version = "3.0.7"
+  uri = "docker://docker.io/initializbuildpacks/nodejs:3.0.8"
+  version = "3.0.8"
 
 [[buildpacks]]
   uri = "docker://docker.io/initializbuildpacks/procfile:5.6.22"
   version = "5.6.22"
 
 [[buildpacks]]
-  uri = "docker://docker.io/initializbuildpacks/web-servers:1.0.18"
-  version = "1.0.18"
+  uri = "docker://docker.io/initializbuildpacks/web-servers:1.0.19"
+  version = "1.0.19"
 
 [lifecycle]
   version = "0.20.4"
@@ -23,19 +23,19 @@ description = "Initializ Buildpack for Go and Nodejs application"
 
   [[order.group]]
     id = "initializ-buildpacks/go"
-    version = "2.0.4"
+    version = "2.0.5"
 
 [[order]]
 
   [[order.group]]
     id = "initializ-buildpacks/web-servers"
-    version = "1.0.18"
+    version = "1.0.19"
 
 [[order]]
 
   [[order.group]]
     id = "initializ-buildpacks/nodejs"
-    version = "3.0.7"
+    version = "3.0.8"
 
 [[order]]
 
