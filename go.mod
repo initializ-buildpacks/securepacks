@@ -1,6 +1,6 @@
 module github.com/initializ-buildpacks/securepack
 
-go 1.24.0
+go 1.24.1
 
 require (
 	github.com/onsi/gomega v1.34.1
