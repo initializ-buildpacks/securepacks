@@ -47,4 +47,3 @@ description = "Initializ Buildpack for Go and Nodejs application"
   build-image = "docker.io/initializbuildpacks/go-securepack-build:9.9.9"
   id = "Initializ Distroless Stack"
   run-image = "docker.io/initializbuildpacks/securepacks-run:latest"
-  run-image-mirrors = []
